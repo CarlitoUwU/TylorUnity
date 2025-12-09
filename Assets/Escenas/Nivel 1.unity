@@ -133,15 +133,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4583118223193562, guid: d1cfc76766095024983ecf5b5990fd8d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.35199
+      value: 10.6
       objectReference: {fileID: 0}
     - target: {fileID: 4583118223193562, guid: d1cfc76766095024983ecf5b5990fd8d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.5
+      value: 5.93
       objectReference: {fileID: 0}
     - target: {fileID: 4583118223193562, guid: d1cfc76766095024983ecf5b5990fd8d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.14087
+      value: 6.45
       objectReference: {fileID: 0}
     - target: {fileID: 4583118223193562, guid: d1cfc76766095024983ecf5b5990fd8d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -450,7 +450,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8539677486239836788, guid: 48cbc29fa5bf4ae686f36898e480837d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.09
+      value: -0.22
       objectReference: {fileID: 0}
     - target: {fileID: 8539677486239836788, guid: 48cbc29fa5bf4ae686f36898e480837d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -458,7 +458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8539677486239836788, guid: 48cbc29fa5bf4ae686f36898e480837d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.722475
+      value: 8.78
       objectReference: {fileID: 0}
     - target: {fileID: 8539677486239836788, guid: 48cbc29fa5bf4ae686f36898e480837d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -546,6 +546,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &911122296
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3856348174882767262, guid: fd523b1c2348ce540940aa725d5c6a9f, type: 3}
+      propertyPath: m_Name
+      value: "Rose Fantasy World _ Tumblebee\u200B\u200B"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037456656874969973, guid: fd523b1c2348ce540940aa725d5c6a9f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037456656874969973, guid: fd523b1c2348ce540940aa725d5c6a9f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.93154
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037456656874969973, guid: fd523b1c2348ce540940aa725d5c6a9f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 9.40381
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037456656874969973, guid: fd523b1c2348ce540940aa725d5c6a9f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037456656874969973, guid: fd523b1c2348ce540940aa725d5c6a9f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037456656874969973, guid: fd523b1c2348ce540940aa725d5c6a9f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037456656874969973, guid: fd523b1c2348ce540940aa725d5c6a9f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037456656874969973, guid: fd523b1c2348ce540940aa725d5c6a9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037456656874969973, guid: fd523b1c2348ce540940aa725d5c6a9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037456656874969973, guid: fd523b1c2348ce540940aa725d5c6a9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fd523b1c2348ce540940aa725d5c6a9f, type: 3}
 --- !u!224 &1156056574 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1058576045776188864, guid: 96e78139e80c1464e9c6b1b464ea3a57, type: 3}
@@ -842,5 +899,6 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 1268540904}
   - {fileID: 1281060273}
+  - {fileID: 911122296}
   - {fileID: 81576304}
   - {fileID: 771254936}
