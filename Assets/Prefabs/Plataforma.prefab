@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2310072397352582526}
   - component: {fileID: 6426037043705656004}
   m_Layer: 0
-  m_Name: ZonaBase
-  m_TagString: Respawn
+  m_Name: Plataforma
+  m_TagString: ColisionSegura
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6d4f8f2e1d3335247b05cfea4a290f3d, type: 2}
+  - {fileID: 2100000, guid: 5be7584575836f449aad0d353d190897, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
