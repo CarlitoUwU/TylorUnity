@@ -1,16 +1,62 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class ControlDeNave : MonoBehaviour
 {
+    public static ControlDeNave Instance;
+
     Rigidbody rb;
     AudioSource audioSource;
-    private float combustible = 100.0f;
+
+    public static float combustibleSobrante = 0f;
+
+    [SerializeField] private float combustible = 0.0f;
+    [SerializeField] private int combustibleMaximo = 100;
+
+    private const int combustibleBase = 100;
     private const int consumoPorSegundo = 25;
-    private const int combustibleMaximo = 100;
     private const int bonusCombustible = 50;
+
     public Action<float> JugadorConsumeCombustible;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        combustibleMaximo = combustibleBase + (int)combustibleSobrante;
+        combustible = combustibleMaximo;
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (Instance != this) return;
+
+        combustibleMaximo = combustibleBase + (int)combustibleSobrante;
+        combustible = combustibleMaximo;
+
+        JugadorConsumeCombustible?.Invoke(combustible);
+    }
 
     private void Start()
     {
@@ -23,35 +69,26 @@ public class ControlDeNave : MonoBehaviour
         ProcesarInput();
     }
 
-    public float getCombustible()
-    {
-        return combustible;
-    }
-
-    public float getCombustibleMaximo()
-    {
-        return combustibleMaximo;
-    }
+    public float getCombustible() => combustible;
+    public float getCombustibleMaximo() => combustibleMaximo;
 
     private void ProcesarInput()
     {
         Propulsion();
         Rotacion();
-        Debug.Log("Combustible: " + combustible);
     }
+
     private void Propulsion()
     {
-        // --- PROPULSIÓN ---
         if (Keyboard.current.spaceKey.isPressed && combustible > 0)
         {
             rb.AddRelativeForce(Vector3.up);
+
             if (!audioSource.isPlaying)
-            {
                 audioSource.Play();
-            }
 
             combustible -= consumoPorSegundo * Time.deltaTime;
-            if (combustible <= 0) combustible = 0;
+            if (combustible < 0) combustible = 0;
 
             JugadorConsumeCombustible?.Invoke(combustible);
         }
@@ -60,39 +97,59 @@ public class ControlDeNave : MonoBehaviour
             audioSource.Stop();
         }
     }
-    private void Rotacion() {
-        // --- ROTACIÓN ---
+
+    private void Rotacion()
+    {
         if (Keyboard.current.dKey.isPressed)
         {
-            var rotarDerecha = transform.rotation;
-            rotarDerecha.z -= Time.deltaTime * 1; // velocidad de rotación
-            transform.rotation = rotarDerecha;
+            var rot = transform.rotation;
+            rot.z -= Time.deltaTime * 1;
+            transform.rotation = rot;
         }
         else if (Keyboard.current.aKey.isPressed)
         {
-            var rotarIzquierda = transform.rotation;
-            rotarIzquierda.z += Time.deltaTime * 1; // velocidad de rotación
-            transform.rotation = rotarIzquierda;
+            var rot = transform.rotation;
+            rot.z += Time.deltaTime * 1;
+            transform.rotation = rot;
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Colisión con: " + collision.gameObject.name);
+
         switch (collision.gameObject.tag)
         {
             case "ColisionSegura":
-                print("Colision segura");
+                print("Colisión segura");
                 break;
+
             case "BonusCombustible":
                 combustible += bonusCombustible;
                 if (combustible > combustibleMaximo) combustible = combustibleMaximo;
                 JugadorConsumeCombustible?.Invoke(combustible);
                 Destroy(collision.gameObject);
                 break;
+
+            case "BasuraPoint":
+                Destroy(collision.gameObject);
+                print("Has destruido basura espacial...!!!");
+                break;
+
+            case "Finish":
+                combustibleSobrante = combustible;
+                print("Combustible sobrante para el próximo nivel: " + combustibleSobrante);
+
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                break;
+
+            case "ColisionPeligrosa":
+                print("Has chocado contra un asteroide");
+                break;
+
             default:
-                print("Muerto...!!!");
+                print($"Has chocado contra {collision.gameObject.name}. Game Over");
                 break;
         }
     }
-
 }
