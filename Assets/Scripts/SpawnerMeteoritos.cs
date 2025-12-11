@@ -12,6 +12,7 @@ public class SpawnerMeteoritos : MonoBehaviour
         InvokeRepeating("SpawnMeteorito", 1f, tiempoEntreMeteoritos);
     }
 
+    //hola
     void SpawnMeteorito()
     {
         Vector3 posicion = new Vector3(
