@@ -1739,6 +1739,7 @@ GameObject:
   - component: {fileID: 1933000267}
   - component: {fileID: 1933000266}
   - component: {fileID: 1933000265}
+  - component: {fileID: 1933000269}
   m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
@@ -1833,12 +1834,25 @@ Transform:
   m_GameObject: {fileID: 1933000264}
   serializedVersion: 2
   m_LocalRotation: {x: 0.010756292, y: -0, z: -0, w: 0.9999421}
-  m_LocalPosition: {x: 90.7587, y: 35.0088, z: 50.0845}
+  m_LocalPosition: {x: 114, y: 41, z: 50}
   m_LocalScale: {x: 432.45877, y: 179.01338, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 1.233, y: 0, z: 0}
+--- !u!114 &1933000269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933000264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b72ff85f0ed8f49bd54f4808b50ef3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScrollingBackground
+  scrollSpeed: 0.01
 --- !u!1001 &2002555848
 PrefabInstance:
   m_ObjectHideFlags: 0
