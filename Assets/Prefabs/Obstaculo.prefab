@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6480199350979159406}
   - component: {fileID: 9082280162405683620}
   - component: {fileID: 8027162395968840421}
+  - component: {fileID: -733056888165354808}
   m_Layer: 0
   m_Name: Obstaculo
   m_TagString: ColisionPeligrosa
@@ -111,3 +112,17 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 5.41
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-733056888165354808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7280704041433903217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4150baccdeb5d5b4a96dd4b9f2b47c8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MovimientoMeteorito
+  velocidad: 2
+  direccion: {x: -1, y: -1, z: 0}
