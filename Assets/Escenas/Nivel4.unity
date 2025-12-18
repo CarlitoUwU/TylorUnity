@@ -1040,6 +1040,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -733056888165354808, guid: ef65ad9fe2ee20a49bb41a55a987f65d, type: 3}
+      propertyPath: moverse
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7280704041433903217, guid: ef65ad9fe2ee20a49bb41a55a987f65d, type: 3}
       propertyPath: m_Name
       value: Obstaculo (1)
