@@ -999,7 +999,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -3928143304686222008, guid: c9241416a6cf03548a1e221e17ad22f3, type: 3}
       propertyPath: m_Mass
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -3928143304686222008, guid: c9241416a6cf03548a1e221e17ad22f3, type: 3}
       propertyPath: m_UseGravity

@@ -972,14 +972,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -3928143304686222008, guid: c9241416a6cf03548a1e221e17ad22f3, type: 3}
-      propertyPath: m_Mass
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: -3928143304686222008, guid: c9241416a6cf03548a1e221e17ad22f3, type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3856348174882767262, guid: c9241416a6cf03548a1e221e17ad22f3, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1770,9 +1762,9 @@ SceneRoots:
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
-  - {fileID: 1268540904}
   - {fileID: 1281060273}
   - {fileID: 1461579418}
+  - {fileID: 1268540904}
   - {fileID: 1047807641}
   - {fileID: 799092562}
   - {fileID: 1783242147}
