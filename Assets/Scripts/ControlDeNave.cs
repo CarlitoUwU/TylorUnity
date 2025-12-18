@@ -5,72 +5,30 @@ using UnityEngine.SceneManagement;
 
 public class ControlDeNave : MonoBehaviour
 {
-    public static ControlDeNave Instance;
-
     Rigidbody rb;
     AudioSource audioSource;
 
-    public static float combustibleSobrante = 0f;
+    Transform tf;
+    [SerializeField] private float thrustForce = 1000f;
+    [SerializeField] private float rotationSpeed = 100f;
 
-    [SerializeField] private float combustible = 0.0f;
-    [SerializeField] private int combustibleMaximo = 100;
-
-    private const int combustibleBase = 100;
-    private const int consumoPorSegundo = 25;
-    private const int bonusCombustible = 50;
+    CombustibleData combustibleData;
 
     public Action<float> JugadorConsumeCombustible;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        combustibleMaximo = combustibleBase + (int)combustibleSobrante;
-        combustible = combustibleMaximo;
-    }
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (Instance != this) return;
-
-        combustibleMaximo = combustibleBase + (int)combustibleSobrante;
-        combustible = combustibleMaximo;
-
-        JugadorConsumeCombustible?.Invoke(combustible);
-    }
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
+        tf = GetComponent<Transform>();
+        combustibleData = CombustibleData.Instance;
+        combustibleData.addCombustible(100f);
     }
 
     private void Update()
     {
         ProcesarInput();
     }
-
-    public float getCombustible() => combustible;
-    public float getCombustibleMaximo() => combustibleMaximo;
 
     private void ProcesarInput()
     {
@@ -80,17 +38,18 @@ public class ControlDeNave : MonoBehaviour
 
     private void Propulsion()
     {
-        if (Keyboard.current.spaceKey.isPressed && combustible > 0)
+        if (Keyboard.current.spaceKey.isPressed && combustibleData.hasCombustible())
         {
-            rb.AddRelativeForce(Vector3.up);
+            rb.AddRelativeForce(Vector3.up * thrustForce * Time.deltaTime);
 
             if (!audioSource.isPlaying)
+            {
                 audioSource.Play();
+            }
 
-            combustible -= consumoPorSegundo * Time.deltaTime;
-            if (combustible < 0) combustible = 0;
+            combustibleData.consumeCombustible();
 
-            JugadorConsumeCombustible?.Invoke(combustible);
+            JugadorConsumeCombustible?.Invoke(combustibleData.getCombustible());
         }
         else
         {
@@ -100,56 +59,79 @@ public class ControlDeNave : MonoBehaviour
 
     private void Rotacion()
     {
-        if (Keyboard.current.dKey.isPressed)
+        float rotacionX = 0f;
+        float rotacionY = 0f;
+
+        if (Input.GetKey(KeyCode.A))
+            rotacionX = -rotationSpeed;
+        else if (Input.GetKey(KeyCode.D))
+            rotacionX = rotationSpeed;
+
+        if (Input.GetKey(KeyCode.W))
+            rotacionY = -rotationSpeed;
+        else if (Input.GetKey(KeyCode.S))
+            rotacionY = rotationSpeed;
+
+        tf.Rotate(rotacionX * Time.deltaTime, rotacionY * Time.deltaTime, 0f, Space.Self);
+    }
+
+    private void Rotate(Vector3 axis, float rotation)
+    {
+        tf.Rotate(axis * rotation * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Trigger con: " + other.gameObject.name);
+
+        switch (other.tag)
         {
-            var rot = transform.rotation;
-            rot.z -= Time.deltaTime * 1;
-            transform.rotation = rot;
-        }
-        else if (Keyboard.current.aKey.isPressed)
-        {
-            var rot = transform.rotation;
-            rot.z += Time.deltaTime * 1;
-            transform.rotation = rot;
+            case "BonusCombustible":
+                combustibleData.bonusCombustibleAmount();
+                print("Has recogido combustible...!!!");
+
+                Destroy(other.gameObject);
+                break;
+
+            case "BasuraPoint":
+                Destroy(other.gameObject);
+                print("Has destruido basura espacial...!!!");
+                break;
+                
+            case "ColisionPeligrosa":
+                print("Has chocado contra un asteroide");
+                break;
+
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Colisión con: " + collision.gameObject.name);
+        Debug.Log("Colisiï¿½n con: " + collision.gameObject.name);
 
         switch (collision.gameObject.tag)
         {
             case "ColisionSegura":
-                print("Colisión segura");
-                break;
-
-            case "BonusCombustible":
-                combustible += bonusCombustible;
-                if (combustible > combustibleMaximo) combustible = combustibleMaximo;
-                JugadorConsumeCombustible?.Invoke(combustible);
-                Destroy(collision.gameObject);
-                break;
-
-            case "BasuraPoint":
-                Destroy(collision.gameObject);
-                print("Has destruido basura espacial...!!!");
+                print("Colisiï¿½n segura");
                 break;
 
             case "Finish":
-                combustibleSobrante = combustible;
-                print("Combustible sobrante para el próximo nivel: " + combustibleSobrante);
-
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-                break;
-
-            case "ColisionPeligrosa":
-                print("Has chocado contra un asteroide");
                 break;
 
             default:
                 print($"Has chocado contra {collision.gameObject.name}. Game Over");
                 break;
         }
+    }
+
+    public float getCombustible()
+    {
+        return combustibleData.getCombustible();
+    }
+
+    public float getCombustibleMaximo()
+    {
+        return combustibleData.getCombustibleMaximo();
     }
 }
