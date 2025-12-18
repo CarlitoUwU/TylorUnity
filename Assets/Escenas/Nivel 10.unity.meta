@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Escenas/Nivel 10.unity.meta
 guid: a1d57962a0a71c34096e1912b28afcdc
+========
+guid: 2eb848f682c1bd441ad692938d57dd82
+>>>>>>>> main:Assets/Escenas/InitialInterface.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
