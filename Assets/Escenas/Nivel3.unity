@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
+  - component: {fileID: 330585548}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -329,6 +330,21 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &330585548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4793f66093f0d0c4b82c2e9e25d40227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFollow2_5D
+  objetivo: {fileID: 587683562}
+  velocidadCamara: 0.025
+  desplazamiento: {x: 25, y: 10, z: -30}
 --- !u!1001 &378433832
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -695,6 +711,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9241416a6cf03548a1e221e17ad22f3, type: 3}
+--- !u!4 &587683562 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4037456656874969973, guid: c9241416a6cf03548a1e221e17ad22f3, type: 3}
+  m_PrefabInstance: {fileID: 587683561}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &653302250
 PrefabInstance:
   m_ObjectHideFlags: 0
