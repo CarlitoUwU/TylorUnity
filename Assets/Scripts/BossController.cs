@@ -71,7 +71,7 @@ public class BossController : MonoBehaviour
     void Die()
     {
         bossMusic.StopBossMusic();
-
+        GameManager.Instance.Victory();
         Destroy(gameObject, 2f);
 
     }

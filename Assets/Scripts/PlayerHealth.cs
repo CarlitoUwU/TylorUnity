@@ -33,7 +33,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("PLAYER DESTRUIDO");
+        GameManager.Instance.GameOver();
         Destroy(gameObject);
     }
 }
