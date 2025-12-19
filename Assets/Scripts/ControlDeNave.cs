@@ -53,7 +53,7 @@ public class ControlDeNave : MonoBehaviour
                 audioSource.Play();
             } 
 
-            // combustibleData.consumeCombustible();
+            combustibleData.consumeCombustible();
             JugadorConsumeCombustible?.Invoke(combustibleData.getCombustible());
         }
         else
