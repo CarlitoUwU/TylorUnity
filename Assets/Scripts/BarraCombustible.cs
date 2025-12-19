@@ -11,9 +11,16 @@ public class BarraCombustible : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textoCombustible;
     void Start()
     {
-        nave = FindFirstObjectByType<ControlDeNave>();
-
-        nave.JugadorConsumeCombustible += ActualizarBarraCombustible;
+        if (nave == null)
+            nave = FindFirstObjectByType<ControlDeNave>(); 
+        try
+        {
+            nave.JugadorConsumeCombustible += ActualizarBarraCombustible;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogWarning($"BarraCombustible: error al suscribirse al evento JugadorConsumeCombustible - {ex.Message}");
+        }
 
         IniciarBarraCombustible((int)nave.getCombustibleMaximo(), (int)nave.getCombustible());
         ActualizarBarraCombustible(nave.getCombustible());
@@ -21,19 +28,40 @@ public class BarraCombustible : MonoBehaviour
 
     private void OnDisable()
     {
+         if (nave != null)
         nave.JugadorConsumeCombustible -= ActualizarBarraCombustible;
     }
 
     private void IniciarBarraCombustible(int combustibleMaximo, int combustibleActual)
     {
+  
+        if (combustibleMaximo <= 0)
+        {
+            Debug.LogWarning($"BarraCombustible: combustibleMaximo es {combustibleMaximo}. Ajustando a 1 para evitar división por cero en Slider.");
+            combustibleMaximo = 1;
+        }
+
         barraCombustible.maxValue = combustibleMaximo;
-        barraCombustible.value = combustibleActual;
-        textoCombustible.text = ((int)combustibleActual).ToString("000"); ;
+
+        var valor = Mathf.Clamp(combustibleActual, 0, barraCombustible.maxValue);
+        barraCombustible.value = valor;
+
+        if (textoCombustible != null)
+            textoCombustible.text = ((int)valor).ToString("000");
     }
 
     private void ActualizarBarraCombustible(float combustibleActual)
     {
-        barraCombustible.value = combustibleActual;
-        textoCombustible.text = ((int)combustibleActual).ToString("000"); ;
+        if (barraCombustible == null)
+        {
+            Debug.LogError("BarraCombustible: intento de actualizar pero 'barraCombustible' es null.");
+            return;
+        }
+
+        var valor = Mathf.Clamp(combustibleActual, 0, barraCombustible.maxValue);
+        barraCombustible.value = valor;
+
+        if (textoCombustible != null)
+            textoCombustible.text = ((int)valor).ToString("000");
     }
 }
