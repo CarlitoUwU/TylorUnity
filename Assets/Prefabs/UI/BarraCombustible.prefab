@@ -290,3 +290,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BarraCombustible
   barraCombustible: {fileID: 1750002719419713827}
   nave: {fileID: 0}
+  textoCombustible: {fileID: 0}

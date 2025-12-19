@@ -1,27 +1,68 @@
 using UnityEngine;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class WeaponController : MonoBehaviour
 {
-    public Transform shootSpawn;
-    public bool shooting;
+    public Transform[] shootSpawns;
     public GameObject bulletPrefab;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+    [Header("Fire Settings")]
+    public float fireRate = 1.5f;
+
+    [Header("Pattern Chances")]
+    [Range(0f, 1f)] public float singleChance = 0.5f;
+    [Range(0f, 1f)] public float doubleChance = 0.35f;
+    [Range(0f, 1f)] public float tripleChance = 0.15f;
+
+    float timer;
+
     void Update()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        shooting = Input.GetKeyDown(KeyCode.Mouse0);
-        if (shooting)
+        timer += Time.deltaTime;
+
+        if (timer >= fireRate)
         {
-            InstantiateNullet();
+            ShootPattern();
+            timer = 0f;
         }
     }
-    public void InstantiateNullet() {
-        Instantiate(bulletPrefab, shootSpawn.position, shootSpawn.rotation);
+
+    void ShootPattern()
+    {
+        float roll = Random.value;
+
+        if (roll < singleChance)
+            ShootSingle();
+        else if (roll < singleChance + doubleChance)
+            ShootDouble();
+        else
+            ShootTriple();
+    }
+
+    void ShootSingle()
+    {
+        int index = Random.Range(0, shootSpawns.Length);
+        Instantiate(bulletPrefab, shootSpawns[index].position, shootSpawns[index].rotation);
+    }
+
+    void ShootDouble()
+    {
+        int first = Random.Range(0, shootSpawns.Length);
+        int second;
+
+        do
+        {
+            second = Random.Range(0, shootSpawns.Length);
+        } while (second == first);
+
+        Instantiate(bulletPrefab, shootSpawns[first].position, shootSpawns[first].rotation);
+        Instantiate(bulletPrefab, shootSpawns[second].position, shootSpawns[second].rotation);
+    }
+
+    void ShootTriple()
+    {
+        foreach (Transform spawn in shootSpawns)
+        {
+            Instantiate(bulletPrefab, spawn.position, spawn.rotation);
+        }
     }
 }
