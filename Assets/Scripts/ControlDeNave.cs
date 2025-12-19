@@ -38,17 +38,22 @@ public class ControlDeNave : MonoBehaviour
 
     private void Propulsion()
     {
-        if (Keyboard.current.spaceKey.isPressed && combustibleData.hasCombustible())
+        float vertical = Input.GetAxis("Vertical"); // W S
+        float horizontal = Input.GetAxis("Horizontal"); // A D
+
+        if ((Mathf.Abs(vertical) > 0.1f || Mathf.Abs(horizontal) > 0.1f)
+            && combustibleData.hasCombustible())
         {
-            rb.AddRelativeForce(Vector3.up * thrustForce * Time.deltaTime);
+            Vector3 direccion = new Vector3(horizontal, vertical, 0f);
+
+            rb.AddForce(direccion.normalized * thrustForce * Time.deltaTime);
 
             if (!audioSource.isPlaying)
             {
                 audioSource.Play();
-            }
+            } 
 
             combustibleData.consumeCombustible();
-
             JugadorConsumeCombustible?.Invoke(combustibleData.getCombustible());
         }
         else
@@ -57,22 +62,17 @@ public class ControlDeNave : MonoBehaviour
         }
     }
 
+
     private void Rotacion()
     {
-        float rotacionX = 0f;
-        float rotacionY = 0f;
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
 
-        if (Input.GetKey(KeyCode.A))
-            rotacionX = -rotationSpeed;
-        else if (Input.GetKey(KeyCode.D))
-            rotacionX = rotationSpeed;
-
-        if (Input.GetKey(KeyCode.W))
-            rotacionY = -rotationSpeed;
-        else if (Input.GetKey(KeyCode.S))
-            rotacionY = rotationSpeed;
-
-        tf.Rotate(rotacionX * Time.deltaTime, rotacionY * Time.deltaTime, 0f, Space.Self);
+        if (Mathf.Abs(horizontal) > 0.1f || Mathf.Abs(vertical) > 0.1f)
+        {
+            float angulo = Mathf.Atan2(vertical, horizontal) * Mathf.Rad2Deg;
+            tf.rotation = Quaternion.Euler(0f, 0f, angulo - 90f);
+        }
     }
 
     private void Rotate(Vector3 axis, float rotation)
@@ -107,8 +107,6 @@ public class ControlDeNave : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Colisi�n con: " + collision.gameObject.name);
-
         switch (collision.gameObject.tag)
         {
             case "ColisionSegura":
@@ -120,7 +118,7 @@ public class ControlDeNave : MonoBehaviour
                 break;
 
             default:
-                print($"Has chocado contra {collision.gameObject.name}. Game Over");
+                //print($"Has chocado contra {collision.gameObject.name}. Game Over");
                 break;
         }
     }

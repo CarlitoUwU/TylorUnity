@@ -6,15 +6,15 @@ public class CombustibleData : MonoBehaviour
 
     [SerializeField] private float combustible = 0f;
     [SerializeField] private float combustibleMaximo = 100f;
-    [SerializeField] private int consumoPorSegundo = 25;
+    [SerializeField] private int consumoPorSegundo = 5;
     [SerializeField] private int bonusCombustible = 50;
 
     void Awake()
     {
-        if (Instance == null)
+        if (CombustibleData.Instance == null)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            CombustibleData.Instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
