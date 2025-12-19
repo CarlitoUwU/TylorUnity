@@ -354,6 +354,8 @@ MonoBehaviour:
   objetivo: {fileID: 1448043641}
   velocidadCamara: 0.025
   desplazamiento: {x: 30, y: 10, z: -30}
+  minBounds: {x: -10, y: -3}
+  maxBounds: {x: 60, y: 25}
 --- !u!1001 &378433832
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -976,12 +976,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "- Usa A y D para moverte horizontalmente.\n- Presiona ESPACIO para activar
-    el propulsor y volar.\n- Evita colisionar con los obst\xE1culos para no perder
-    puntaje.\n- Cada nivel inicia con 10 unidades de combustible.\n- El combustible
-    disminuye con el tiempo.\n- El combustible restante se acumula para el siguiente
-    nivel.\n- Llega a la Plataforma de Llegada antes de quedarte sin combustible.\n-
-    Cada nivel permite hasta 5 colisiones como m\xE1ximo."
+  m_text: "- Usa A y D para moverte horizontalmente.\n- Usa W y S para moverte verticalmente.\n-
+    Evita colisionar con los obst\xE1culos para no perder puntaje.\n- Cada nivel
+    inicia con 10 unidades de combustible.\n- El combustible disminuye con el tiempo.\n-
+    El combustible restante se acumula para el siguiente nivel.\n- Llega a la Plataforma
+    de Llegada antes de quedarte sin combustible.\n- Cada nivel permite hasta 10
+    colisiones como m\xE1ximo."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
