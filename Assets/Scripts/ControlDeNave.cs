@@ -107,8 +107,6 @@ public class ControlDeNave : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Colisi�n con: " + collision.gameObject.name);
-
         switch (collision.gameObject.tag)
         {
             case "ColisionSegura":
@@ -120,7 +118,7 @@ public class ControlDeNave : MonoBehaviour
                 break;
 
             default:
-                print($"Has chocado contra {collision.gameObject.name}. Game Over");
+                //print($"Has chocado contra {collision.gameObject.name}. Game Over");
                 break;
         }
     }

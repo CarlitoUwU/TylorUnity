@@ -12,8 +12,7 @@ public class BarraCombustible : MonoBehaviour
     void Start()
     {
         if (nave == null)
-            nave = FindFirstObjectByType<ControlDeNave>();
-
+            nave = FindFirstObjectByType<ControlDeNave>(); 
         try
         {
             nave.JugadorConsumeCombustible += ActualizarBarraCombustible;
