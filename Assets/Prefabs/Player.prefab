@@ -172,6 +172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae0a394c35017847834b6b6256157e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControlDeNave
+  thrustForce: 1000
+  rotationSpeed: 100
 --- !u!135 &4596132180297295549
 SphereCollider:
   m_ObjectHideFlags: 0
