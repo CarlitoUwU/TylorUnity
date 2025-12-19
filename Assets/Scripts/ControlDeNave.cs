@@ -16,7 +16,7 @@ public class ControlDeNave : MonoBehaviour
 
     public Action<float> JugadorConsumeCombustible;
 
-    private void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
@@ -86,6 +86,16 @@ public class ControlDeNave : MonoBehaviour
 
         switch (other.tag)
         {
+            case "ColisionPeligrosa":
+                print("Has chocado contra un asteroide");
+                RecibirDañoPorMeteorito(15f);
+
+                if (other.gameObject.name.Contains("Meteorite"))
+                {
+                    Destroy(other.gameObject);
+                }
+                break;
+
             case "BonusCombustible":
                 combustibleData.bonusCombustibleAmount();
                 print("Has recogido combustible...!!!");
@@ -96,10 +106,6 @@ public class ControlDeNave : MonoBehaviour
             case "BasuraPoint":
                 Destroy(other.gameObject);
                 print("Has destruido basura espacial...!!!");
-                break;
-                
-            case "ColisionPeligrosa":
-                print("Has chocado contra un asteroide");
                 break;
 
         }
@@ -131,5 +137,16 @@ public class ControlDeNave : MonoBehaviour
     public float getCombustibleMaximo()
     {
         return combustibleData.getCombustibleMaximo();
+    }
+
+    public void RecibirDañoPorMeteorito(float cantidad)
+    {
+        // Restamos a la data del combustible
+        combustibleData.addCombustible(-cantidad);
+
+        // Notificamos a la BarraCombustible para que se actualice visualmente
+        JugadorConsumeCombustible?.Invoke(combustibleData.getCombustible());
+
+        Debug.Log("¡Impacto! Combustible restante: " + combustibleData.getCombustible());
     }
 }
